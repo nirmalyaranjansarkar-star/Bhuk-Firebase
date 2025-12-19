@@ -71,6 +71,7 @@ const Chatbot: React.FC = () => {
     setMessages(prev => [...prev, { id: Date.now().toString(), role: 'user', text: userText }]);
 
     try {
+      // Strictly use process.env.API_KEY as per guidelines
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
       const chat: Chat = ai.chats.create({

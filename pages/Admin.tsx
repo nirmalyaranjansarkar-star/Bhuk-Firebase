@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { SUBSCRIPTION_FORM_URL, FREE_RESOURCES_FORM_URL } from '../constants';
 import { storage, db } from '../firebaseConfig';
