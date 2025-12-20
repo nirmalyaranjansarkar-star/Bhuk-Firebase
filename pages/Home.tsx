@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import { Language } from '../types';
 import { TRANSLATIONS, NO_MEAL_FORM_URL } from '../constants';
@@ -25,6 +25,31 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ lang }) => {
   const t = TRANSLATIONS[lang];
   const isBn = lang === 'bn';
+
+  // 3D Tilt State
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroRef.current) return;
+    
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Calculate rotation values (Max tilt 20 degrees for dramatic effect)
+    const rotateY = ((x - centerX) / centerX) * 20;
+    const rotateX = ((centerY - y) / centerY) * 20;
+
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+  };
 
   return (
     <div className="min-h-screen">
@@ -79,13 +104,92 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
             </div>
           </div>
           
-          <div className="order-1 md:order-2 relative animate-on-scroll delay-200">
-             <div className="relative z-10 transform md:rotate-2 hover:rotate-0 transition-all duration-700 group">
-                <img 
-                  src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=1200&auto=format&fit=crop" 
-                  alt="A delicious and healthy home-style Indian thali meal from Bhuk Foods, featuring a variety of curries, rice, and bread."
-                  className="rounded-[2.5rem] shadow-2xl border-8 border-white dark:border-slate-800 w-full object-cover h-[400px] md:h-[500px]"
-                />
+          <div className="order-1 md:order-2 relative animate-on-scroll delay-200 flex justify-center items-center h-[450px] md:h-[550px]">
+             {/* 3D Interactive Container - Composite Thali */}
+             <div 
+               ref={heroRef}
+               className="relative w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center cursor-pointer perspective-[1200px] group"
+               onMouseMove={handleMouseMove}
+               onMouseLeave={handleMouseLeave}
+             >
+                <div 
+                  className="relative w-[280px] md:w-[400px] aspect-square transition-transform duration-100 ease-out"
+                  style={{ 
+                    transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+                    transformStyle: 'preserve-3d' 
+                  }}
+                >
+                    {/* 1. Floor Shadow */}
+                    <div 
+                      className="absolute inset-0 rounded-full bg-black/40 blur-[50px] transition-all duration-300 group-hover:bg-black/50 group-hover:scale-110"
+                      style={{ transform: 'translateZ(-60px) scale(0.9)' }}
+                    ></div>
+
+                    {/* 2. Main Plate Base (Rice/Thali) */}
+                    <div 
+                      className="absolute inset-0 rounded-full border-[8px] border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-900 overflow-hidden shadow-2xl"
+                      style={{ transform: 'translateZ(0px)' }}
+                    >
+                      <img 
+                         src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Base Thali with Rice and Roti" 
+                         className="w-full h-full object-cover scale-110 group-hover:scale-115 transition-transform duration-700" 
+                      />
+                      {/* Gloss Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
+                    </div>
+
+                    {/* 3. Floating Dish: Fish Curry (Top Right) */}
+                    <div 
+                      className="absolute -top-6 -right-6 w-32 h-32 md:w-40 md:h-40 rounded-full border-[6px] border-white dark:border-slate-800 shadow-[0_10px_30px_rgba(0,0,0,0.3)] overflow-hidden bg-orange-100 z-10"
+                      style={{ transform: 'translateZ(40px)' }}
+                    >
+                      <img 
+                        src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=400&auto=format&fit=crop" 
+                        className="w-full h-full object-cover scale-125 group-hover:scale-110 transition-transform duration-500" 
+                        alt="Fish Curry" 
+                      />
+                    </div>
+
+                    {/* 4. Floating Dish: Chicken Kosha (Bottom Left) */}
+                    <div 
+                      className="absolute -bottom-6 -left-6 w-36 h-36 md:w-44 md:h-44 rounded-full border-[6px] border-white dark:border-slate-800 shadow-[0_10px_30px_rgba(0,0,0,0.3)] overflow-hidden bg-red-100 z-20"
+                      style={{ transform: 'translateZ(60px)' }}
+                    >
+                       <img 
+                        src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400&auto=format&fit=crop" 
+                        className="w-full h-full object-cover scale-125 group-hover:scale-110 transition-transform duration-500" 
+                        alt="Chicken Kosha" 
+                      />
+                    </div>
+
+                    {/* 5. Floating Dish: Dessert/Kheer (Top Left) */}
+                    <div 
+                      className="absolute top-0 -left-8 w-24 h-24 md:w-28 md:h-28 rounded-full border-[5px] border-white dark:border-slate-800 shadow-[0_10px_20px_rgba(0,0,0,0.2)] overflow-hidden bg-yellow-100 z-10"
+                      style={{ transform: 'translateZ(30px)' }}
+                    >
+                       <img 
+                        src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400&auto=format&fit=crop" 
+                        className="w-full h-full object-cover scale-125 group-hover:scale-110 transition-transform duration-500" 
+                        alt="Mishti / Dessert" 
+                      />
+                    </div>
+
+                    {/* 6. Floating Badge (Center) */}
+                    <div 
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none"
+                      style={{ transform: 'translateZ(80px) translateX(-50%) translateY(-50%)' }}
+                    >
+                      <div className="bg-[#D32F2F] text-white text-sm font-bold px-5 py-2 rounded-full shadow-xl border-2 border-white dark:border-slate-900 whitespace-nowrap flex items-center gap-2">
+                        <span>🔥</span> {lang === 'bn' ? 'সেরা থালি' : 'Premium Thali'}
+                      </div>
+                    </div>
+                </div>
+
+                {/* Instruction Hint */}
+                <div className="absolute bottom-0 md:-bottom-12 text-slate-400 text-xs font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4">
+                   {lang === 'bn' ? 'দেখতে কার্সার সরান' : 'Interactive 3D View'}
+                </div>
              </div>
           </div>
         </div>
