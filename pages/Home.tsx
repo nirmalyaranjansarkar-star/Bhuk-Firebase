@@ -82,41 +82,10 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
           <div className="order-1 md:order-2 relative animate-on-scroll delay-200">
              <div className="relative z-10 transform md:rotate-2 hover:rotate-0 transition-all duration-700 group">
                 <img 
-                  src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=1200&auto=format&fit=crop" 
                   alt="A delicious and healthy home-style Indian thali meal from Bhuk Foods, featuring a variety of curries, rice, and bread."
                   className="rounded-[2.5rem] shadow-2xl border-8 border-white dark:border-slate-800 w-full object-cover h-[400px] md:h-[500px]"
                 />
-                
-                {/* Pricing Annotations Overlay */}
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 md:opacity-100 transition-opacity duration-700">
-                   {/* Top Left: Roti - 2850 */}
-                   <div className="absolute top-[10%] left-[8%] w-[35%] h-[35%] border-2 border-dashed border-blue-400/60 rounded-xl flex items-end justify-start">
-                      <div className="bg-white dark:bg-slate-900 text-blue-600 font-black px-2 py-1 rounded shadow-lg text-xs md:text-lg -mb-3 -ml-2 border border-blue-100">
-                        ₹2,850
-                      </div>
-                   </div>
-
-                   {/* Top Right: Dal - 3300 */}
-                   <div className="absolute top-[12%] right-[12%] w-[25%] h-[25%] border-2 border-dashed border-blue-400/60 rounded-xl flex items-end justify-end">
-                      <div className="bg-white dark:bg-slate-900 text-blue-600 font-black px-2 py-1 rounded shadow-lg text-xs md:text-lg -mb-3 -mr-2 border border-blue-100">
-                        ₹3,300
-                      </div>
-                   </div>
-
-                   {/* Bottom Left: Salad - 3600 */}
-                   <div className="absolute bottom-[15%] left-[12%] w-[25%] h-[25%] border-2 border-dashed border-blue-400/60 rounded-xl flex items-end justify-start">
-                      <div className="bg-white dark:bg-slate-900 text-blue-600 font-black px-2 py-1 rounded shadow-lg text-xs md:text-lg -mb-3 -ml-2 border border-blue-100">
-                        ₹3,600
-                      </div>
-                   </div>
-
-                   {/* Bottom Right: Curry - 4050 */}
-                   <div className="absolute bottom-[10%] right-[8%] w-[30%] h-[30%] border-2 border-dashed border-blue-400/60 rounded-xl flex items-end justify-end">
-                      <div className="bg-white dark:bg-slate-900 text-blue-600 font-black px-2 py-1 rounded shadow-lg text-xs md:text-lg -mb-3 -mr-2 border border-blue-100">
-                        ₹4,050
-                      </div>
-                   </div>
-                </div>
              </div>
           </div>
         </div>
@@ -133,24 +102,6 @@ const Home: React.FC<HomeProps> = ({ lang }) => {
                 <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white font-bengali-support leading-tight relative z-10 mx-4">
                   {isBn ? 'মূল্য তালিকা' : 'Pricing & Plans'}
                 </h1>
-                
-                {/* Annotation: Starts @ 1950 */}
-                <div className="hidden md:flex absolute top-1/2 -left-32 -translate-y-1/2 flex-col items-center animate-on-scroll delay-100">
-                   <div className="border-2 border-dashed border-blue-400/50 rounded-xl w-24 h-12 mb-1"></div>
-                   <span className="text-blue-500 font-bold text-sm">Starts @ Rs.1950</span>
-                </div>
-
-                {/* Annotation: Starts @ 3300 */}
-                <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-center animate-on-scroll delay-200 pointer-events-none opacity-40 hover:opacity-100 transition-opacity">
-                   <div className="border-2 border-dashed border-blue-400/50 rounded-xl w-32 h-16 mb-1 scale-110"></div>
-                   <span className="text-blue-500 font-bold text-sm translate-y-8">Starts @ Rs.3300</span>
-                </div>
-
-                {/* Annotation: Starts @ 2850 */}
-                <div className="hidden md:flex absolute top-1/2 -right-32 -translate-y-1/2 flex-col items-center animate-on-scroll delay-300">
-                   <div className="border-2 border-dashed border-blue-400/50 rounded-xl w-24 h-12 mb-1"></div>
-                   <span className="text-blue-500 font-bold text-sm">Starts @ Rs.2850</span>
-                </div>
              </div>
 
              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mt-4">
